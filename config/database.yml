@@ -79,6 +79,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: backend_learn_practicum_production
   username: backend_learn_practicum
   password: <%= ENV["BACKEND_LEARN_PRACTICUM_DATABASE_PASSWORD"] %>
