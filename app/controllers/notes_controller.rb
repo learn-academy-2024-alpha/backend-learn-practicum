@@ -12,8 +12,8 @@ class NotesController < ApplicationController
 
   def create
     note = Note.create(note_params)
-      if note.valid?
-        render json: note
+    if note.valid?
+      render json: note
     end
   end
 
@@ -31,6 +31,7 @@ class NotesController < ApplicationController
   end
 
   private
+
   def note_params
     params.require(:note).permit(:title, :content, :public)
   end
