@@ -1,4 +1,4 @@
-require 'faker'
+require "faker"
 
 5.times do
   password = Faker::Internet.password
