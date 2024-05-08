@@ -58,8 +58,17 @@ standardrb --fix
 
 A few of the many resources that helped to build this application.
 
-- [GitHun Actions Building and testing Ruby](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-ruby)
+- [GitHub Actions: Building and Testing Ruby](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-ruby)
 
 ### 🚀 Deployment
 
-- The application is deployed on Render.com and available at [this url]()
+- The application is deployed on Render.com and available at [this url](https://backend-learn-practicum.onrender.com)
+- Build script in `bin/render-build.sh`
+
+```sh
+set -o errexit
+
+bundle install
+bundle exec rake db:migrate
+bundle exec rake db:seed
+```
