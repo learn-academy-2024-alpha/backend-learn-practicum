@@ -7,6 +7,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
     resource.save
     sign_in(resource_name, resource)
-    render json: resource, status: :ok
+    if resource.valid?
+      render json: resource, status: :ok
+    else
+      render json: resource.errors, status: :unprocessable_entity
+    end
   end
 end
