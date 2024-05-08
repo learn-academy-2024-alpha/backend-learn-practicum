@@ -72,3 +72,12 @@ bundle install
 bundle exec rake db:migrate
 bundle exec rake db:seed
 ```
+
+- CORS updates to be made when ready for production
+
+```ruby
+# development
+origins "http://localhost:3001"
+# production
+origins "https://frontend-learn-practicum.onrender.com"
+```
