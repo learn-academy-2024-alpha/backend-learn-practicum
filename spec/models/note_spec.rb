@@ -2,17 +2,33 @@ require "rails_helper"
 describe Note, type: :model do
   describe "validations" do
     it "validates presence of title" do
-      note = Note.new(content: "text", public: false)
+      note = Note.new(content: "text", creator: 1, public: false)
       expect(note).not_to be_valid
       expect(note.errors[:title]).to include("can't be blank")
     end
     it "validates presence of content" do
-      note = Note.new(title: "Title", public: false)
+      note = Note.new(title: "Title", creator: 1, public: false)
       expect(note).not_to be_valid
       expect(note.errors[:content]).to include("can't be blank")
     end
+    it "should validate presence of creator" do
+      note = Note.new(title: "Title", content: "text", public: false)
+      expect(note).not_to be_valid
+      expect(note.errors[:creator]).to include("can't be blank")
+    end
+    it "validates creator datatype as integer" do
+      note = Note.new(title: "Title", content: "text", creator: 1, public: false)
+      expect(note).to be_valid
+      note.creator = 1
+      expect(note).to be_valid
+      note.creator = nil
+      expect(note).not_to be_valid
+      note.creator = "string"
+      expect(note).not_to be_valid
+      expect(note.errors[:creator]).to include("is not a number")
+    end
     it "validates inclusion of public" do
-      note = Note.new(title: "Title", content: "text", public: true)
+      note = Note.new(title: "Title", content: "text", creator: 1, public: true)
       expect(note).to be_valid
       note.public = false
       expect(note).to be_valid
