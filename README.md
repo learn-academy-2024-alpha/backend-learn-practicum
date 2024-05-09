@@ -30,7 +30,7 @@ Testing is handled by RSpec
 - Note: title, content, public
 - Users have many notes
 - Notes have many users
-- [Database Diagram](https://dbdiagram.io/d/663be8359e85a46d555ade95)
+- [Database Diagram](https://dbdiagram.io/d/Copy-of-Untitled-Diagram-663d4db09e85a46d5573e239)
 
 ### 🫧 Linting
 
