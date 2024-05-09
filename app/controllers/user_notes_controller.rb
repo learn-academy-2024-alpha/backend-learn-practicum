@@ -12,6 +12,16 @@ class UserNotesController < ApplicationController
     end
   end
 
+
+  def destroy 
+    user_note = UserNote.find(params[:id])
+    if user_note.destroy
+      render json: {message: "User note destroyed"}
+    else
+      render json: {error: "User note not found"}, status: 422
+    end
+  end
+
 end
 
 
