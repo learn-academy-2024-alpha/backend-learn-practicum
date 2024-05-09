@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe "Notes", type: :request do
   describe "GET /index" do
     it "returns a list of public notes and  a successful http response" do
-      note = Note.create(title: "Note 1", content: "Content 1", public: true)
+      note = Note.create(title: "Note 1", content: "Content 1", creator: 1, public: true)
       get notes_path
       expect(response).to have_http_status(200)
       expect(note).to be_valid
@@ -13,7 +13,7 @@ RSpec.describe "Notes", type: :request do
   describe "GET /show" do
     it "returns a list of private notes and a successful http response" do
       user = User.create(email: "test@email.com", password: "password", password_confirmation: "password", username: "test")
-      note = Note.create(title: "Note 1", content: "Content 1", public: false)
+      note = Note.create(title: "Note 1", content: "Content 1", creator: 1, public: false)
       get note_path(id: user.id)
       expect(response).to have_http_status(200)
       expect(note).to be_valid
@@ -26,6 +26,7 @@ RSpec.describe "Notes", type: :request do
         note: {
           title: "test",
           content: "this is test content",
+          creator: 1,
           public: true
         }
       }
@@ -38,6 +39,7 @@ RSpec.describe "Notes", type: :request do
         note: {
           title: nil,
           content: nil,
+          creator: nil,
           public: nil
         }
       }
@@ -53,6 +55,7 @@ RSpec.describe "Notes", type: :request do
         note: {
           title: "new test",
           content: "this is a new test content",
+          creator: 1,
           public: true
         }
       }
@@ -61,6 +64,7 @@ RSpec.describe "Notes", type: :request do
         note: {
           title: "updated test",
           content: "updated this is test content",
+          creator: 1,
           public: false
         }
       }
@@ -75,6 +79,7 @@ RSpec.describe "Notes", type: :request do
         note: {
           title: "invalid update test",
           content: "invalid update content",
+          creator: 1,
           public: false
         }
       }
@@ -83,6 +88,7 @@ RSpec.describe "Notes", type: :request do
         note: {
           title: nil,
           content: nil,
+          creator: nil,
           public: nil
         }
       }
@@ -97,6 +103,7 @@ RSpec.describe "Notes", type: :request do
       note = Note.create(
         title: "delete test",
         content: "delete this is test content",
+        creator: 1,
         public: false
       )
       expect {
@@ -112,6 +119,7 @@ RSpec.describe "Notes", type: :request do
         note: {
           title: nil,
           content: nil,
+          creator: nil,
           public: nil
         }
       }

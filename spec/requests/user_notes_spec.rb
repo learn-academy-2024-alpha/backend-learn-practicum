@@ -4,7 +4,7 @@ RSpec.describe "UserNotes", type: :request do
   describe "POST #create" do
     it "creates a user_note relationship and returns with a http success" do
       user = User.create!(username: "testuser", email: "user@example.com", password: "testpassword", password_confirmation: "testpassword")
-      note = Note.create!(title: "some example title", content: "Sample note content", public: true)
+      note = Note.create!(title: "some example title", content: "Sample note content", creator: 1, public: true)
 
       post user_notes_path, params: {
         user_note: {
@@ -24,7 +24,7 @@ RSpec.describe "UserNotes", type: :request do
     it "deletes a user_note relationship and returns with a http success" do
       user = User.create!(username: "testuser", email: "user@example.com", password: "testpassword", password_confirmation: "testpassword")
 
-      note = Note.create!(title: "some example title", content: "Sample note content", public: true)
+      note = Note.create!(title: "some example title", content: "Sample note content", creator: 1, public: true)
 
       user_note = UserNote.create(user_id: user.id, note_id: note.id)
 
