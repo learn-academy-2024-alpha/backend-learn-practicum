@@ -11,7 +11,7 @@ users = []
     user.notes.create(
       title: "#{Faker::Emotion.adjective.capitalize} message for #{Faker::FunnyName.name}",
       content: Faker::Hacker.say_something_smart,
-      creator: Faker::Number.between(from:1, to: 10),
+      creator: Faker::Number.between(from: 1, to: 10),
       public: Faker::Boolean.boolean
     )
     p "created note"
