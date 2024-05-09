@@ -14,6 +14,8 @@ class NotesController < ApplicationController
     note = Note.create(note_params)
     if note.valid?
       render json: note
+    else
+      render json: note.errors, status: 422
     end
   end
 
@@ -22,12 +24,18 @@ class NotesController < ApplicationController
     note.update(note_params)
     if note.valid?
       render json: note
+    else
+      render json: note.errors, status: 422
     end
   end
 
   def destroy
     note = Note.find(params[:id])
-    note.destroy
+    if note.destroy
+      render json: {}, status: 204
+    else
+      render json: {}, status: 422
+    end
   end
 
   private
