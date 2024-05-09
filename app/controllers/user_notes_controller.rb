@@ -1,9 +1,8 @@
 class UserNotesController < ApplicationController
-
-  def create 
+  def create
     username = params[:user_note][:user_id]
     user = User.where(username: username).first
-    params[:user_note][:user_id] = user.id 
+    params[:user_note][:user_id] = user.id
     user_note = UserNote.create(user_note_params)
     if user_note.valid?
       render json: user_note
@@ -12,8 +11,7 @@ class UserNotesController < ApplicationController
     end
   end
 
-
-  def destroy 
+  def destroy
     user_note = UserNote.find(params[:id])
     if user_note.destroy
       render json: {message: "User note destroyed"}
@@ -21,11 +19,10 @@ class UserNotesController < ApplicationController
       render json: {error: "User note not found"}, status: 422
     end
   end
-
 end
 
+private
 
-private 
 def user_note_params
   params.require(:user_note).permit(:note_id, :user_id)
 end
