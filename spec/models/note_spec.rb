@@ -1,5 +1,4 @@
 require "rails_helper"
-
 describe Note, type: :model do
   describe "validations" do
     it "validates presence of title" do
