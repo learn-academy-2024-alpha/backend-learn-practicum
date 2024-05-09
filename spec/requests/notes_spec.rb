@@ -33,6 +33,18 @@ RSpec.describe "Notes", type: :request do
       expect(response).to have_http_status(200)
       expect(note).to be_valid
     end
+    it "creates an invalid note" do
+      post notes_path, params: {
+        note: {
+          title: nil,
+          content: nil,
+          public: nil
+        }
+      }
+      note = Note.where(title: nil).first
+      expect(response).to have_http_status(422)
+      expect(note).to eq(nil)
+    end
   end
 
   describe "PATCH #update" do
@@ -58,6 +70,26 @@ RSpec.describe "Notes", type: :request do
       expect(note.public).to eq(false)
       expect(response).to have_http_status(200)
     end
+    it "makes an invalid update to an existing note" do
+      post notes_path, params: {
+        note: {
+          title: "invalid update test",
+          content: "invalid update content",
+          public: false
+        }
+      }
+      note = Note.where(title: "invalid update test").first
+      patch note_path(note), params: {
+        note: {
+          title: nil,
+          content: nil,
+          public: nil
+        }
+      }
+      note = Note.where(content: nil).first
+      expect(response).to have_http_status(422)
+      expect(note).to eq(nil)
+    end
   end
 
   describe "DELETE #destroy" do
@@ -71,6 +103,21 @@ RSpec.describe "Notes", type: :request do
         delete note_path(note)
       }.to change(Note, :count).by(-1)
       expect(response).to have_http_status(204)
+    end
+  end
+
+  describe "422 error" do
+    it "creates an invalid note" do
+      post notes_path, params: {
+        note: {
+          title: nil,
+          content: nil,
+          public: nil
+        }
+      }
+      note = Note.where(title: nil).first
+      expect(response).to have_http_status(422)
+      expect(note).to eq(nil)
     end
   end
 end
