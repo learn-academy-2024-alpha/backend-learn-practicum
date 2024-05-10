@@ -15,5 +15,4 @@ Rails.application.routes.draw do
       registrations: "users/registrations"
     }
   resources :user, only: [:show]
-  root "static#home"
 end
